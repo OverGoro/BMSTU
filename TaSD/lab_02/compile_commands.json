@@ -1,0 +1,23 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/student.o",
+      "src/student.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/TiSD/lab_02",
+    "file": "/home/yurik/Рабочий стол/3_sem/TiSD/lab_02/src/student.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/TiSD/lab_02/out/student.o"
+  }
+]

@@ -1,0 +1,45 @@
+Drive
+Refn
+2011
+Fight Club
+Fincher
+1999
+Forrest Gump
+Zemeckis
+1994
+Gladiator
+Scott
+2000
+Goodfellas
+Scorsese
+1990
+Inception
+Nolan
+2010
+Inglourious Basterds
+Tarantino
+2009
+Schindler's List
+Spielberg
+1993
+Star Wars
+Lucas
+1977
+The Avengers
+Whedon
+2012
+The Big Lebowski
+Coen
+1998
+The Godfather
+Coppola
+1972
+The Lord of the Rings
+Jackson
+2001
+The Shining
+Kubrick
+1980
+The Silence of the Lambs
+Demme
+1991

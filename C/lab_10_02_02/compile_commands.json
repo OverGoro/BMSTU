@@ -1,0 +1,86 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01/src/main.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01/out/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/node.o",
+      "src/node.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01/src/node.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01/out/node.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/automobile.o",
+      "src/automobile.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01/src/automobile.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01/out/automobile.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/automobile_arr.o",
+      "src/automobile_arr.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01/src/automobile_arr.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_10/iu7-cprog-labs-2023-gorodskiiyurii/lab_10_04_01/out/automobile_arr.o"
+  }
+]

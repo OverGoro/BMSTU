@@ -1,0 +1,1 @@
+a ../../func_tests/data/neg_02_a_in.txt ../../func_tests/data/neg_02_b_in.txt ../../func_tests/scripts/prog_out.txt

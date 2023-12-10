@@ -1,0 +1,1 @@
+m ../../func_tests/data/pos_08_a_in.txt ../../func_tests/data/pos_08_b_in.txt ../../func_tests/scripts/prog_out.txt

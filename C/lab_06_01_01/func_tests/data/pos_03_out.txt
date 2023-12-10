@@ -1,0 +1,45 @@
+The Godfather
+Coppola
+1972
+Star Wars
+Lucas
+1977
+The Shining
+Kubrick
+1980
+Goodfellas
+Scorsese
+1990
+The Silence of the Lambs
+Demme
+1991
+Schindler's List
+Spielberg
+1993
+Forrest Gump
+Zemeckis
+1994
+The Big Lebowski
+Coen
+1998
+Fight Club
+Fincher
+1999
+Gladiator
+Scott
+2000
+The Lord of the Rings
+Jackson
+2001
+Inglourious Basterds
+Tarantino
+2009
+Inception
+Nolan
+2010
+Drive
+Refn
+2011
+The Avengers
+Whedon
+2012

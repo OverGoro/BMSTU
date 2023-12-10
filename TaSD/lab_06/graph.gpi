@@ -1,0 +1,16 @@
+#!/usr/bin/gnuplot -persist
+reset
+NO_ANIMATION = 1
+
+set grid
+
+
+set title "Сравнение удаления элментов по времени"
+
+set xlabel "Количество элементов в дереве"
+set ylabel "Время удаления (С)"
+plot './measures/data.txt' using 1:2 with linespoints title "Дерево по имени" 
+replot './measures/data.txt' using 1:3 with linespoints title "Перестройка дерева по дате + удаление"
+
+pause -1
+

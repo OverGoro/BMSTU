@@ -1,0 +1,149 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052",
+    "file": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/src/main.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/out/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/object.o",
+      "src/object.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052",
+    "file": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/src/object.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/out/object.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/queue_array.o",
+      "src/queue_array.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052",
+    "file": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/src/queue_array.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/out/queue_array.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/process.o",
+      "src/process.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052",
+    "file": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/src/process.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/out/process.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/process_array.o",
+      "src/process_array.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052",
+    "file": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/src/process_array.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/out/process_array.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/queue_list.o",
+      "src/queue_list.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052",
+    "file": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/src/queue_list.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/out/queue_list.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/queue_list_node.o",
+      "src/queue_list_node.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052",
+    "file": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/src/queue_list_node.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/TaSD/lab_052/out/queue_list_node.o"
+  }
+]

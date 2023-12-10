@@ -1,0 +1,27 @@
+#!/usr/bin/gnuplot -persist
+reset
+NO_ANIMATION = 1
+set xlabel "Кол-во элементов в массива"
+set ylabel "Время сортировки(с)"
+set grid
+
+
+set title "Сравнение mysort и qsort"
+
+plot './measures/sorted_data_q.txt' with linespoints title "Отсортированный массив qsort"
+replot './measures/sorted_data_m.txt' with linespoints title "Отсортированный массив mysort"
+pause -1
+
+plot './measures/reversed_data_q.txt' with linespoints title "Отсортированный в обратном порядке массив qsort"
+replot './measures/reversed_data_m.txt' with linespoints title "Отсортированный в обратном порядке массив mysort"
+pause -1
+
+plot './measures/equal_data_q.txt' with linespoints title "Массив из одинаковых элементов qsort"
+replot './measures/equal_data_m.txt' with linespoints title "Массив из одинаковых элементов mysort"
+pause -1
+
+plot './measures/random_data_q.txt' with linespoints title "Массив из случайных элементов qsort"
+replot './measures/random_data_m.txt' with linespoints title "Массив из случайных элементов mysort"
+pause -1
+
+

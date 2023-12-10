@@ -1,0 +1,12 @@
+BBBB
+2
+2
+CCCC
+3
+3
+AAAA
+1
+1
+DDDD
+4
+4

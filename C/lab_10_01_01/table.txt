@@ -1,0 +1,13 @@
+p ../../func_tests/data/pos_01_in.txt |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 |Вывод файла
+p-unique ../../func_tests/data/pos_02_in.txt |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4|BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 |Вывод файла с удалением повторов
+p-max ../../func_tests/data/pos_03_in.txt |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4|DDDD 4 4 |Вывод самого дорогого предложения
+p-min ../../func_tests/data/pos_04_in.txt |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4|AAAA 1 1|Вывод самого дешевого предложения
+ps-vin ../../func_tests/data/pos_05_in.txt |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 |AAAA 1 1 BBBB 2 2 CCCC 3 3 DDDD 4 4|Сортировка по vin
+ps-mileage ../../func_tests/data/pos_06_in.txt |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 |AAAA 1 1 BBBB 2 2 CCCC 3 3 DDDD 4 4|Сортировка по пробегу
+ps-price ../../func_tests/data/pos_07_in.txt |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 |AAAA 1 1 BBBB 2 2 CCCC 3 3 DDDD 4 4|Сортировка по цене
+pr-vin ../../func_tests/data/pos_08_in.txt |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 |DDDD 4 4 CCCC 3 3 BBBB 2 2 AAAA 1 1|Сортировка в обратном порядке по vin
+pr-mileage ../../func_tests/data/pos_09_in.txt |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 |DDDD 4 4 CCCC 3 3 BBBB 2 2 AAAA 1 1|Сортировка в обратном порядке по пробегу
+pr-price ../../func_tests/data/pos_10_in.txt |BBBB 2 2 CCCC 3 3 AAAA 1 1 DDDD 4 4 |DDDD 4 4 CCCC 3 3 BBBB 2 2 AAAA 1 1|Сортировка в обратном порядке по цене
+-
+abcd |||Неверная команда
+p ../../func_tests/data/not_exist.txt |||Не существующий файл
