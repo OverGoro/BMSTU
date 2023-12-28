@@ -1,1 +1,0 @@
-a ../../func_tests/data/pos_04_a_in.txt ../../func_tests/data/pos_04_b_in.txt ../../func_tests/scripts/prog_out.txt

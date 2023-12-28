@@ -1,1 +1,0 @@
-h ../../func_tests/data/neg_14_in.txt ../../func_tests/scripts/prog_out.txt

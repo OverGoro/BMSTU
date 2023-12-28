@@ -1,1 +1,1 @@
-../lab_10_03_common/check_main.c
+unsupported reparse tag 0xa000000c

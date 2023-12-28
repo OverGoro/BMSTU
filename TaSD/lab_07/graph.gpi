@@ -1,0 +1,34 @@
+#!/usr/bin/gnuplot -persist
+reset
+NO_ANIMATION = 1
+
+set grid
+
+
+set title "Сравнение времени поиска элементов"
+
+set xlabel "Количество элементов"
+set ylabel "Время поиска (С)"
+plot './measures/find.txt' using 1:2 with linespoints title "Дерево поиска" 
+replot './measures/find.txt' using 1:3 with linespoints title "AVL дерево"
+replot './measures/find.txt' using 1:4 with linespoints title "Хеш-таблица с внешним хешированием"
+replot './measures/find.txt' using 1:5 with linespoints title "Хеш-таблица с вутренним хешированием"
+
+pause -1
+
+set xlabel "Количество элементов"
+set ylabel "Занимаемая память (Байт)"
+plot './measures/find_size.txt' using 1:2 with linespoints title "Дерево поиска" 
+replot './measures/find_size.txt' using 1:3 with linespoints title "AVL дерево"
+replot './measures/find_size.txt' using 1:4 with linespoints title "Хеш-таблица с внешним хешированием"
+replot './measures/find_size.txt' using 1:5 with linespoints title "Хеш-таблица с вутренним хешированием"
+
+pause -1
+set title "Сравнение хеш-таблиц при разном колличестве коллизий"
+set xlabel "Колличество коллизий"
+set ylabel "Среднее количество операция сравнения"
+plot './measures/hash.txt' using 1:2 with linespoints title "Хеш-таблица с внешним хешированием" 
+replot './measures/hash.txt' using 1:3 with linespoints title "Хеш-таблица с вутренним хешированием"
+
+pause -1
+
