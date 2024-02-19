@@ -1,0 +1,21 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g3",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_01/dyn_lib_2",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_01/dyn_lib_2/src/main.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_01/dyn_lib_2/out/main.o"
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_1/dyn_lib_1",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_1/dyn_lib_1/src/main.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_1/dyn_lib_1/out/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc/",
+      "-fPIC",
+      "-c",
+      "-o",
+      "out/array.o",
+      "src/array.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_1/dyn_lib_1",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_1/dyn_lib_1/src/array.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_1/dyn_lib_1/out/array.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I",
+      "inc/",
+      "-fPIC",
+      "-c",
+      "-o",
+      "out/sort.o",
+      "src/sort.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_1/dyn_lib_1",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_1/dyn_lib_1/src/sort.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_1/dyn_lib_1/out/sort.o"
+  }
+]

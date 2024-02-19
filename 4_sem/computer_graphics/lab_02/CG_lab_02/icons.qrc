@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/move.png</file>
+        <file>images/move_pressed.png</file>
+        <file>images/rotate.png</file>
+        <file>images/rotate_pressed.png</file>
+        <file>images/scale_pressed.png</file>
+        <file>images/scale.png</file>
+    </qresource>
+</RCC>

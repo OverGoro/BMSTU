@@ -1,0 +1,30 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_01/stat_lib",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_01/stat_lib/src/main.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_01/stat_lib/out/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/array.o",
+      "src/array.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_01/stat_lib",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_01/stat_lib/src/array.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_12/iu7-cprog-labs-2023-gorodskiiyurii/lab_12_04_01/stat_lib/out/array.o"
+  }
+]

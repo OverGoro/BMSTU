@@ -1,0 +1,44 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/check_cmp.o",
+      "unit_tests/check_cmp.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_11/iu7-cprog-labs-2023-gorodskiiyurii/lab_11",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_11/iu7-cprog-labs-2023-gorodskiiyurii/lab_11/unit_tests/check_cmp.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_11/iu7-cprog-labs-2023-gorodskiiyurii/lab_11/out/check_cmp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-std=c99",
+      "-g",
+      "-O0",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wpedantic",
+      "-c",
+      "-I",
+      "inc/",
+      "-o",
+      "out/check_ho.o",
+      "unit_tests/check_ho.c"
+    ],
+    "directory": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_11/iu7-cprog-labs-2023-gorodskiiyurii/lab_11",
+    "file": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_11/iu7-cprog-labs-2023-gorodskiiyurii/lab_11/unit_tests/check_ho.c",
+    "output": "/home/yurik/Рабочий стол/3_sem/C/labs/lab_11/iu7-cprog-labs-2023-gorodskiiyurii/lab_11/out/check_ho.o"
+  }
+]
