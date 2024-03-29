@@ -55,19 +55,23 @@ static int point_rotate_axis_z(point_t &point, double angle)
 int point_rotate(point_t &point, const point_t &center, const rotate_coefficients_t &angle)
 {
     move_coefficients_t movement = move_coefficients_create(-center.x, -center.y, -center.z);
-
     move_coefficients_t back_movement = move_coefficients_create(center.x, center.y, center.z);
 
     int rc = point_move(point, movement);
     if (!rc)
+    {
         rc = point_rotate_axis_x(point, angle.x_angle);
-    if (!rc)
-        rc = point_rotate_axis_y(point, angle.y_angle);
-    if (!rc)
-        rc = point_rotate_axis_z(point, angle.z_angle);
-    if (!rc)
-        rc = point_move(point, back_movement);
-
+        if (!rc)
+        {
+            rc = point_rotate_axis_y(point, angle.y_angle);
+            if (!rc)
+            {
+                rc = point_rotate_axis_z(point, angle.z_angle);
+                if (!rc)
+                    rc = point_move(point, back_movement);
+            }
+        }
+    }
 
     return rc;
 }
@@ -82,12 +86,11 @@ int point_scale(point_t &point, const point_t &center, const scale_coefficients_
 
 int point_read(FILE *file, point_t &point)
 {
-    int rc = OK;
     if (fscanf(file, "%lf%lf%lf", &point.x, &point.y, &point.z) != 3)
     {
-        rc = ERR_IO;
+        return ERR_IO;
     }
-    return rc;
+    return OK;
 }
 
 int point_print(FILE *file, const point_t &point)

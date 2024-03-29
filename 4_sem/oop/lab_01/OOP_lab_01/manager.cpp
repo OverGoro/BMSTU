@@ -5,6 +5,7 @@ int manage(const manager_params_t &params, manager_command_t command)
     static figure_t figure = figure_init_empty();
 
     int rc = ERR_UNKNOWN_COMMAND;
+
     if (command == COMMAND_READ)
     {
         rc = figure_read_file(figure, params.filename);
@@ -27,7 +28,7 @@ int manage(const manager_params_t &params, manager_command_t command)
     }
     else if (command == COMMAND_DRAW)
     {
-        rc = drawer_draw_figure(params.drawer_params, figure);
+        rc = canvas_draw_figure(params.canvas, figure);
     }
     else if (command == COMMAND_EXIT)
     {

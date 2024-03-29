@@ -7,7 +7,7 @@ void MainWindow::manage_read()
     manager_params.filename = file_name;
     int rc = manage(manager_params, COMMAND_READ);
     handle_rc(rc);
-    ui->openGLWidget->update();
+    update();
 }
 
 void MainWindow::manage_save()
@@ -16,7 +16,7 @@ void MainWindow::manage_save()
     manager_params.filename = file_name;
     int rc = manage(manager_params, COMMAND_SAVE);
     handle_rc(rc);
-    ui->openGLWidget->update();
+    update();
 }
 
 void MainWindow::manage_move()
@@ -28,7 +28,7 @@ void MainWindow::manage_move()
     manager_params.move_params = move_coefficients_create(dx ,dy, dz);
     int rc = manage(manager_params, COMMAND_MOVE);
     handle_rc(rc);
-    ui->openGLWidget->update();
+    update();
 }
 
 void MainWindow::manage_rotate()
@@ -49,7 +49,7 @@ void MainWindow::manage_rotate()
 
     int rc = manage(manager_params, COMMAND_ROTATE);
     handle_rc(rc);
-    ui->openGLWidget->update();
+    update();
 }
 
 void MainWindow::manage_scale()
@@ -70,17 +70,22 @@ void MainWindow::manage_scale()
 
     int rc = manage(manager_params, COMMAND_SCALE);
     handle_rc(rc);
-    ui->openGLWidget->update();
+    update();
 }
 
-
-void MainWindow::manage_drawGL()
+void MainWindow::manage_draw()
 {
-    color_t lines_color = color_create(255, 0, 0);
-    drawer_params_set_lines_color(manager_params.drawer_params, lines_color);
+    double r_width = 2, r_height = 2;
+    size_t c_width = ui->widget->width(), c_height = ui->widget->height();
+    QPen lines_pen = QPen(QColor(1,0,0));
+    canvas_set_count_size(manager_params.canvas, r_width, r_height);
+    canvas_set_screen_size(manager_params.canvas, c_width, c_height);
+    canvas_set_lines_pen(manager_params.canvas, lines_pen);
+    canvas_set_painter(manager_params.canvas, ui->widget->painter);
     int rc = manage(manager_params, COMMAND_DRAW);
     handle_rc(rc);
 }
+
 
 void MainWindow::handle_rc(int rc)
 {
@@ -108,6 +113,9 @@ void MainWindow::handle_rc(int rc)
     break;
     case ERR_UNKNOWN_COMMAND:
         ui->rc_label->setText("Ошибка: неизвестная команда");
+    break;
+    case ERR_NULL_PTR:
+        ui->rc_label->setText("Ошибка: передан нулевой указатель");
     break;
     default:
         ui->rc_label->setText("Неизвестная ошибка");
@@ -143,7 +151,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->rotate_z_lineEdit->setValidator(new QDoubleValidator);
 
 
-    connect(ui->openGLWidget, &GLWidget::paintGL_signal, this, &MainWindow::manage_drawGL);
+    connect(ui->widget, &PainterWidget::paint_signal, this, &MainWindow::manage_draw);
 
     connect(ui->read_file_pushButton, &QPushButton::clicked, this, &MainWindow::manage_read);
     connect(ui->save_file_pushButton, &QPushButton::clicked, this, &MainWindow::manage_save);

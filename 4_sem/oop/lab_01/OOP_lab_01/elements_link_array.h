@@ -26,7 +26,7 @@ int links_array_allocate(links_array_t &links_array, size_t array_size);
  *
  * @param links_array [in, out] Массив связей
  */
-void links_array_clear(links_array_t &links_array);
+void links_array_free(links_array_t &links_array);
 
 /**
  * @brief links_array_read_file Чтение массива связей из файлового потока
@@ -47,6 +47,8 @@ int links_array_read(links_array_t &links_array, FILE *f);
  * @return Код ошибки
  */
 int links_array_print(FILE *file, const links_array_t &links_array);
+
+int links_validate(const link_t *links, size_t links_size, size_t target_array_size);
 
 /**
  * @brief links_array_validate Проверка корректности индексов связей для целевого массива

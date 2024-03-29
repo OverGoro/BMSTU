@@ -23,7 +23,7 @@ private slots:
     void manage_move();
     void manage_rotate();
     void manage_scale();
-    void manage_drawGL();
+    void manage_draw();
     void handle_rc(int rc);
 protected:
     void closeEvent(QCloseEvent *event) override;

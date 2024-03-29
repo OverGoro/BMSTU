@@ -10,17 +10,15 @@ CONFIG += c++11
 
 SOURCES += \
     canvas.cpp \
-    color.cpp \
-    drawer.cpp \
     elements_link.cpp \
     elements_link_array.cpp \
     error.cpp \
     figure.cpp \
-    glwidget.cpp \
     main.cpp \
     mainwindow.cpp \
     manager.cpp \
     move_coefficients.cpp \
+    painterwidget.cpp \
     point.cpp \
     points_array.cpp \
     rotate_coefficients.cpp \
@@ -28,16 +26,14 @@ SOURCES += \
 
 HEADERS += \
     canvas.h \
-    color.h \
-    drawer.h \
     elements_link.h \
     elements_link_array.h \
     error.h \
     figure.h \
-    glwidget.h \
     mainwindow.h \
     manager.h \
     move_coefficients.h \
+    painterwidget.h \
     point.h \
     points_array.h \
     rotate_coefficients.h \
@@ -52,5 +48,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    ../build-OOP_lab_01-Desktop-Debug/pn \
     ../build-OOP_lab_01-Desktop-Debug/pnts \
-    ../build-OOP_lab_01-Desktop-Debug/pntsp
+    ../build-OOP_lab_01-Desktop-Debug/pnts2 \
+    ../build-OOP_lab_01-Desktop-Debug/pnts3 \
+    ../build-OOP_lab_01-Desktop-Debug/pntsp \
+    ../build-OOP_lab_01-Desktop-Debug/pntsr

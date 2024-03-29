@@ -11,17 +11,13 @@ figure_t figure_init_empty()
 
 int figure_allocate(figure_t &figure, size_t array_size, size_t links_size)
 {
-    int rc = OK;
-
     // Выделение памяти
-    rc = points_array_allocate(figure.points_array, array_size);
+    int rc = points_array_allocate(figure.points_array, array_size);
     if (!rc)
-        rc = links_array_allocate(figure.links_array, links_size);
-
-    // Освобождение памяти
-    if (rc)
     {
-        figure_clear(figure);
+        rc = links_array_allocate(figure.links_array, links_size);
+        if (rc)
+            points_array_free(figure.points_array);
     }
 
     return rc;
@@ -30,8 +26,8 @@ int figure_allocate(figure_t &figure, size_t array_size, size_t links_size)
 
 void figure_clear(figure_t &figure)
 {
-    points_array_clear(figure.points_array);
-    links_array_clear(figure.links_array);
+    points_array_free(figure.points_array);
+    links_array_free(figure.links_array);
 }
 
 int figure_rotate(figure_t &figure, const point_t &center, const rotate_coefficients_t &angle)
@@ -52,45 +48,29 @@ int figure_scale(figure_t &figure, const point_t &center, const scale_coefficien
     return rc;
 }
 
-//static int figure_read_points_array(points_array_t &points_array, FILE *f)
-//{
-//    return points_array_read(points_array, f);
-//}
-
-//static int figure_read_links_array(links_array_t &links_array, FILE *f)
-//{
-//    return links_array_read(links_array, f);
-//}
-
 int figure_read(figure_t &figure, FILE *f)
 {
     int rc = OK;
     rc = points_array_read(figure.points_array, f);
     if (!rc)
         rc = links_array_read(figure.links_array, f);
-    if (rc)
+    else
         figure_clear(figure);
     return rc;
 }
 
 int figure_read_file(figure_t &figure, const char *filename)
 {
-    int rc = OK;
+    FILE *f = fopen(filename, "r");
+
+    if (f == NULL)
+        return error_get_file_error();
 
     figure_t tmp_figure = figure_init_empty();
-    FILE *f = NULL;
 
-    if (!rc) f = fopen(filename, "r");
+    int rc = figure_read(tmp_figure, f);
 
-    if (!rc && f == NULL)
-        rc = error_get_file_error();
-
-    if (!rc)
-        rc = figure_read(tmp_figure, f);
-
-    // Закрытие файла
-    if (f)
-        fclose(f);
+    fclose(f);
 
     if (!rc)
     {
@@ -113,17 +93,13 @@ int figure_print(FILE *f, const figure_t &figure)
 
 int figure_save_file(const figure_t &figure, const char *filename)
 {
-    int rc = OK;
     FILE *f = fopen(filename, "w");
-
     if (f == NULL)
-        rc = error_get_file_error();
+        return error_get_file_error();
 
-    if (!rc)
-        rc = figure_print(f, figure);
+    int rc = figure_print(f, figure);
 
-    if (f)
-        fclose(f);
+    fclose(f);
 
     return rc;
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.2, 2024-03-02T01:40:10. -->
+<!-- Written by QtCreator 6.0.2, 2024-03-30T01:16:41. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -236,11 +236,13 @@
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
     <value type="bool" key="Analyzer.QmlProfiler.Settings.UseGlobalSettings">true</value>
     <value type="bool" key="Analyzer.Valgrind.Settings.UseGlobalSettings">true</value>
+    <value type="QString" key="Analyzer.Valgrind.ShowReachable">true</value>
+    <value type="QString" key="Analyzer.Valgrind.ValgrindExecutable">/usr/bin/valgrind</value>
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/yurik/Рабочий стол/4_sem/oop/lab_01/OOP_lab_01/OOP_lab_01.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/yurik/Рабочий стол/4_sem/oop/lab_01/OOP_lab_01/OOP_lab_01.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/media/yurik/Data/GitHub/BMSTU/4_sem/oop/lab_01/OOP_lab_01/OOP_lab_01.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/media/yurik/Data/GitHub/BMSTU/4_sem/oop/lab_01/OOP_lab_01/OOP_lab_01.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>

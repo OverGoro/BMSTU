@@ -12,7 +12,8 @@ enum
     ERR_FILE_NOT_EXIST, // Файл не существует
     ERR_FILE_ACCESS,    // Нет доступа к файлу
     ERR_MEM,            // Ошибка работы с памятью
-    ERR_UNKNOWN_COMMAND // Ошибка: неизвестная команда
+    ERR_UNKNOWN_COMMAND,// Ошибка: неизвестная команда
+    ERR_NULL_PTR        // Ошибка: передан нулевой указатель
 };
 
 int error_get_file_error();

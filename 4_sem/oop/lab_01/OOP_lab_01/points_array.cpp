@@ -9,42 +9,47 @@ points_array_t points_array_init_empty()
     return points_array;
 }
 
+static int points_allocate(point_t * &points, size_t array_size)
+{
+    points = (point_t *)malloc(array_size * sizeof(point_t));
+    if (points == NULL)
+        return ERR_MEM;
+    return OK;
+}
+
 int points_array_allocate(points_array_t &points_array, size_t array_size)
 {
-    int rc = OK;
-
-    points_array.array = (point_t *)malloc(array_size * sizeof(point_t));
-    if (points_array.array == NULL)
-        rc = ERR_MEM;
+    int rc = points_allocate(points_array.array, array_size);
     if (!rc)
         points_array.array_size = array_size;
-
     return rc;
 }
 
-void points_array_clear(points_array_t &points_array)
+static void points_free(point_t *points)
 {
-    if (points_array.array != NULL)
-        free(points_array.array);
-    points_array = points_array_init_empty();
+    if (points != NULL)
+        free(points);
+}
+
+void points_array_free(points_array_t &points_array)
+{
+    points_free(points_array.array);
 }
 
 static int points_array_read_array_size(size_t &size, FILE *f)
 {
-    int rc = OK;
-
-    // Чтение размеров
-    if (!rc && fscanf(f, "%lu", &size) != 1)
-        rc = ERR_IO;
-
-    return rc;
+    if (fscanf(f, "%lu", &size) != 1)
+        return ERR_IO;
+    return OK;
 }
 
 static int points_array_read_array(point_t *points, FILE *f, size_t size)
 {
-    int rc = OK;
+    if (points == NULL)
+        return ERR_NULL_PTR;
 
     // Чтение точек
+    int rc = OK;
     for (size_t i = 0; !rc && i < size; i++)
         rc = point_read(f, points[i]);
 
@@ -54,20 +59,20 @@ static int points_array_read_array(point_t *points, FILE *f, size_t size)
 
 int points_array_read(points_array_t &points_array, FILE *f)
 {
-    int rc = OK;
-
-    size_t array_size;
-
-    rc = points_array_read_array_size(array_size, f);
+    int rc = points_array_read_array_size(points_array.array_size, f);
 
     // Выделение памяти
-    if (!rc) rc = points_array_allocate(points_array, array_size);
-
-    // Чтение точек
-    if (!rc) rc = points_array_read_array(points_array.array, f, points_array.array_size);
-
-    if (rc)
-        points_array_clear(points_array);
+    if (!rc)
+    {
+        rc = points_allocate(points_array.array, points_array.array_size);
+        // Чтение точек
+        if (!rc)
+        {
+            rc = points_array_read_array(points_array.array, f, points_array.array_size);
+            if (rc)
+                points_free(points_array.array);
+        }
+    }
 
     return rc;
 }

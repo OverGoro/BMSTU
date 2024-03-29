@@ -2,16 +2,14 @@
 
 static int link_read_id(size_t &id, FILE *file)
 {
-    int rc = OK;
     if (fscanf(file, "%lu", &id) != 1)
-        rc = ERR_IO;
-    return rc;
+        return ERR_IO;
+    return OK;
 }
 
 int link_read(link_t &link, FILE *f)
 {
-    int rc = OK;
-    rc = link_read_id(link.i_1, f);
+    int rc = link_read_id(link.i_1, f);
     if (!rc)
         rc = link_read_id(link.i_2, f);
     return rc;

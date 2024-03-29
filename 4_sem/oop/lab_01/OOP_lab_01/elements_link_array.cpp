@@ -10,41 +10,45 @@ links_array_t links_array_create_empty()
     return links_array;
 }
 
+static int links_allocate(link_t * &links, size_t array_size)
+{
+    links = (link_t *)malloc(array_size * sizeof(link_t));
+    if (links == NULL)
+        return ERR_MEM;
+    return OK;
+}
+
 int links_array_allocate(links_array_t &links_array, size_t array_size)
 {
-    int rc = OK;
-
-    links_array.array = (link_t *)malloc(array_size * sizeof(link_t));
-    if (links_array.array == NULL)
-        rc = ERR_MEM;
+    int rc = links_allocate(links_array.array, array_size);
     if (!rc)
         links_array.array_size = array_size;
-
     return rc;
 }
 
-void links_array_clear(links_array_t &links_array)
+static void links_free(link_t *links)
 {
-    if (!links_array.array)
-        free(links_array.array);
+    if (links != NULL)
+        free(links);
+}
 
-    links_array.array = NULL;
-    links_array.array_size = 0;
+void links_array_free(links_array_t &links_array)
+{
+    links_free(links_array.array);
 }
 
 static int links_array_read_array_size(size_t &array_size, FILE *f)
 {
-    int rc = OK;
-
-    // Чтение размеров
-    if (!rc && fscanf(f, "%lu", &array_size) != 1)
-        rc = ERR_IO;
-
-    return rc;
+    if (fscanf(f, "%lu", &array_size) != 1)
+        return ERR_IO;
+    return OK;
 }
 
 static int links_array_read_array(link_t *array, FILE *f, size_t array_size)
 {
+    if (array == NULL)
+        return ERR_NULL_PTR;
+
     int rc = OK;
     for (size_t i = 0; !rc && i < array_size; i++)
         rc = link_read(array[i], f);
@@ -53,23 +57,22 @@ static int links_array_read_array(link_t *array, FILE *f, size_t array_size)
 
 int links_array_read(links_array_t &links_array, FILE *f)
 {
-    int rc = OK;
-    size_t array_size;
 
     // Чтение размеров
-    if (!rc)
-        rc = links_array_read_array_size(array_size, f);
+    int rc = links_array_read_array_size(links_array.array_size, f);
 
     // Выделение памяти
     if (!rc)
-        rc = links_array_allocate(links_array, array_size);
-
-    // Чтение связей
-    if (!rc)
-        rc = links_array_read_array(links_array.array, f, links_array.array_size);
-
-    if (rc)
-        links_array_clear(links_array);
+    {
+        rc = links_allocate(links_array.array, links_array.array_size);
+        // Чтение связей
+        if (!rc)
+        {
+            rc = links_array_read_array(links_array.array, f, links_array.array_size);
+            if (rc)
+                links_free(links_array.array);
+        }
+    }
 
     return rc;
 }
@@ -92,19 +95,23 @@ static int links_array_print_array_size(FILE *f, size_t array_size)
 
 int links_array_print(FILE *f, const links_array_t &links_array)
 {
-    int rc = OK;
-    rc = links_array_print_array_size(f, links_array.array_size);
+    int rc = links_array_print_array_size(f, links_array.array_size);
     if (!rc)
         rc = links_array_print_array(f, links_array.array, links_array.array_size);
     return rc;
 }
 
-int links_array_validate(const links_array_t &links_array, size_t target_array_size)
+int links_validate(const link_t *links, size_t links_size, size_t target_array_size)
 {
     int rc = OK;
-    for (size_t i = 0; !rc && i < links_array.array_size; i++)
+    for (size_t i = 0; !rc && i < links_size; i++)
     {
-        rc = link_validate(links_array.array[i], target_array_size);
+        rc = link_validate(links[i], target_array_size);
     }
     return rc;
+}
+
+int links_array_validate(const links_array_t &links_array, size_t target_array_size)
+{
+    return links_validate(links_array.array, links_array.array_size, target_array_size);
 }

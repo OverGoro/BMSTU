@@ -29,7 +29,7 @@ int points_array_allocate(points_array_t &points_array, size_t array_size);
  *
  * @param points_array [in, out] Массив точек
  */
-void points_array_clear(points_array_t &points_array);
+void points_array_free(points_array_t &points_array);
 
 
 /**

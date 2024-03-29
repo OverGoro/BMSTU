@@ -2,6 +2,7 @@
 #define MANAGER_H
 
 #include "drawer.h"
+#include "canvas.h"
 #include "error.h"
 #include "figure.h"
 
@@ -19,7 +20,7 @@ typedef enum
 typedef struct
 {
     // Параметры отрисовщика
-    drawer_params_t         drawer_params;  // Параметры отрисовщика
+    canvas_t canvas;
     // Параметры операций над точками
     point_t                 center;         // Центр операций
     move_coefficients_t     move_params;    // Параметры переноса
