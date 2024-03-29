@@ -18,6 +18,7 @@ private:
     double countWidth, countHeight; // Ширина и высота поля в реальной системе
 
     // Объекты:
+    QPointF centerPoint;                    // Точка, обозначющая центр операций
     QVector<QVector<QPointF>> closedLines;  // Замкнутые ломаные
     QVector<QPair<QPointF, QPointF>> lines; // Отрезки
     QVector<QVector<QPointF>> polylines;    // Ломаные линии
@@ -178,10 +179,17 @@ public:
      */
     void drawPolylines();
 
+    /**
+     * @brief drawPoint Отрисовка точки
+     */
+    void drawPoint(const QPointF &p);
+
     double getCountWidth() const;
     void setCountWidth(double newCountWidth);
     double getCountHeight() const;
     void setCountHeight(double newCountHeight);
+    QPointF getCenterPoint() const;
+    void setCenterPoint(QPointF newCenterPoint);
 };
 
 #endif // PAINTERWIDGET_H

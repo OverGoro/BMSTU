@@ -1,0 +1,6 @@
+#!/usr/bin/gnuplot
+reset
+NO_ANIMATION = 1
+set grid
+plot 'graph.txt' using 1:2 with lines
+pause -1

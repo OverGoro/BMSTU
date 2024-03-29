@@ -3,6 +3,7 @@
 #include <QVector3D>
 #include <QPointF>
 
+#define EPS 1e-6
 
 int getLineEquation(const QPointF &p1, const QPointF &p2, QVector3D &equation)
 {
@@ -21,7 +22,7 @@ int getIntersectionPoint(const QVector3D &equation_1, const QVector3D &equation_
 {
     qreal determinant = equation_1.x() * equation_2.y() - equation_2.x() * equation_1.y();
     int rc = OK;
-    if (determinant == 0)
+    if (qAbs(determinant) < EPS)
         rc = ERR_PARALLEL_LINES;
     if (!rc)
     {
@@ -35,7 +36,7 @@ int getIntersectionPoint(const QVector3D &equation_1, const QVector3D &equation_
 int getAngleBisectorEquation(const QPointF& p_top, const QPointF& p2, const QPointF& p3, QVector3D &res_equation)
 {
     QVector2D side_12, side_13, side_23;    // Уравнения сторон угла
-    QPointF bisec_point;                    // Точка пересечения ссектрисы и противоположной стороны
+    QPointF bisec_point;                    // Точка пересечения биссектрисы и противоположной стороны
 
     side_12 = QVector2D(p2.x() - p_top.x(), p2.y() - p_top.y());
     side_13 = QVector2D(p3.x() - p_top.x(), p3.y() - p_top.y());
@@ -50,7 +51,7 @@ int getAngleBisectorEquation(const QPointF& p_top, const QPointF& p2, const QPoi
 int getAngleBisectorPoint(const QPointF& p_top, const QPointF& p2, const QPointF& p3, QPointF &res_point)
 {
     QVector2D side_12, side_13, side_23;    // Уравнения сторон угла
-    QPointF bisec_point;                    // Точка пересечения ссектрисы и противоположной стороны
+    QPointF bisec_point;                    // Точка пересечения биссектрисы и противоположной стороны
 
     side_12 = QVector2D(p2.x() - p_top.x(), p2.y() - p_top.y());
     side_13 = QVector2D(p3.x() - p_top.x(), p3.y() - p_top.y());
@@ -103,7 +104,7 @@ int getAngleBetweenLines(const QVector3D &line_1, const QVector3D &line_2, qreal
 
     if (!rc)
     {
-        // Вычисляем нормали к прямым
+        // Вычисляем нормали к прямымBBBHHBH
         QVector2D normal1(line_1.x(), line_1.y());
         QVector2D normal2(line_2.x(), line_2.y());
 

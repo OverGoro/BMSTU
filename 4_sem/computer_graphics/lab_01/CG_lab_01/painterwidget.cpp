@@ -9,12 +9,20 @@ void PainterWidget::setSaveScale(bool newSaveScale)
     this->saveScale = newSaveScale;
 }
 
+int PainterWidget::getWidth()
+{
+    return width();
+}
+
+int PainterWidget::getHeight()
+{
+    return height();
+}
+
 PainterWidget::PainterWidget(QWidget *parrent)
     : QWidget(parrent)
 {
     this->painter = NULL;
-    this->scaleMatrix = {1, 1};
-    this->moveMatrix = {0, 0};
     this->marginVector = {12,12};
     this->font = QFont("Arial",11);
     this->saveScale = true;
@@ -38,17 +46,7 @@ void PainterWidget::paintEvent(QPaintEvent *event)
     pointsPen.setWidth(5);
     pointsPen.setColor(Qt::red);
 
-    transformedPoints = points;
-    transformedLines = lines;
-    transformedPointLines = pointLines;
-    transformedTexts = texts;
-    transformedClosedLines = closedLines;
-
     setTransformations();
-    transformAll();
-    setTransformationsUI();
-    transformAll();
-    transformAllToDecart();
 
     painter = new QPainter(this);
     painter->setPen(closedLinesPen);
@@ -63,133 +61,30 @@ void PainterWidget::paintEvent(QPaintEvent *event)
     painter->end();
 }
 
-QPointF PainterWidget::transformPoint(const QPointF &p)
-{
-    qreal x = p.x() + moveMatrix.x();
-    qreal y = p.y() + moveMatrix.y();
-    x = x * scaleMatrix.x() + marginVector.x();
-    y = height() - y * scaleMatrix.y() - marginVector.y();
-
-    return QPointF(x, y);
-
-}
-
-void PainterWidget::transformTexts()
-{
-    for (auto &t : transformedTexts)
-    {
-        QPointF p = QPointF(t.getLeft(), t.getTop());
-        p = transformPoint(p);
-        t.moveTo(p.x(), p.y());
-    }
-//    bool hasIntersected = true; // есть пересечения надписей
-//    while (hasIntersected)
-//    {
-//        hasIntersected = false;
-//        for (qsizetype i = 0; i < transformedTexts.size(); i++)
-//        {
-//            for (qsizetype j = i + 1; j < transformedTexts.size(); j++)
-//            {
-//                if (transformedTexts[i].intersects(transformedTexts[j]) &&
-//                        transformedTexts[i].getText() != transformedTexts[j].getText())
-//                {
-//                    hasIntersected = true;
-//                    QRectF intersectedBox = transformedTexts[i].intersection(transformedTexts[j]);
-//                    if (transformedTexts[i].getLeft() < transformedTexts[j].getLeft())
-//                        transformedTexts[j].move(intersectedBox.width(), intersectedBox.height());
-//                    else
-//                        transformedTexts[i].move(intersectedBox.width(), intersectedBox.height());
-//                }
-//            }
-//        }
-//    }
-}
-
-void PainterWidget::transformAll()
-{
-    transformTexts();
-
-    for (auto &p : transformedPoints)
-        p = transformPoint(p);
-
-    for (auto &cl : transformedClosedLines)
-    {
-        for (auto &p : cl)
-        {
-            p = transformPoint(p);
-        }
-    }
-
-    for (auto &l : transformedLines)
-    {
-        l.first = transformPoint(l.first);
-        l.second = transformPoint(l.second);
-    }
-    for (auto &pl : transformedPointLines)
-    {
-        pl.first = transformPoint(pl.first);
-        pl.second = transformPoint(pl.second);
-    }
-}
-
-void PainterWidget::transformAllToDecart()
-{
-    for (auto &t : transformedTexts)
-    {
-        t.moveTo(t.getLeft(), height() - t.getTop());
-    }
-    for (auto &p : transformedPoints)
-        p.setY(height() - p.y());
-
-    for (auto &cl : transformedClosedLines)
-    {
-        for (auto &p : cl)
-        {
-            p.setY(height() - p.y());
-        }
-    }
-
-    for (auto &l : transformedLines)
-    {
-        l.first.setY(height() - l.first.y());
-        l.second.setY(height() - l.second.y());
-    }
-    for (auto &pl : transformedPointLines)
-    {
-        pl.first.setY(height() - pl.first.y());
-        pl.second.setY(height() - pl.second.y());
-    }
-}
-
 void PainterWidget::addClosedLines(const QVector<QPointF> &points)
 {
     this->closedLines.append(points);
-    transformedClosedLines = closedLines;
 }
 
 void PainterWidget::addLines(const QVector<QPair<QPointF, QPointF> > &lines)
 {
     this->lines.append(lines);
-    transformedLines = lines;
 }
 
 void PainterWidget::addPointLines(const QVector<QPair<QPointF, QPointF> > &pointLines)
 {
     this->pointLines.append(pointLines);
-    transformedPointLines = pointLines;
 }
 
 void PainterWidget::addPoints(const QVector<QPointF> &points)
 {
     this->points.append(points);
     this->addPointsText(points);
-    transformedPoints = points;
 }
 
 void PainterWidget::addText(const QPointF &point, const QString &text)
 {
     texts.push_back(PainterText(point, text, font));
-    transformedTexts = texts;
 }
 
 void PainterWidget::addPointsText(const QVector<QPointF> &points)
@@ -208,17 +103,6 @@ void PainterWidget::clear()
     this->closedLines.clear();
     this->points.clear();
     this->texts.clear();
-
-    this->transformedLines.clear();
-    this->transformedPointLines.clear();
-    this->transformedClosedLines.clear();
-    this->transformedPoints.clear();
-    this->transformedTexts.clear();
-
-    this->moveMatrix.setX(0);
-    this->moveMatrix.setY(0);
-    this->scaleMatrix.setX(0);
-    this->scaleMatrix.setY(0);
 }
 
 void PainterWidget::setTransformationsByPoints(const QVector<QPointF> &points)
@@ -234,29 +118,11 @@ void PainterWidget::setTransformationsByPoints(const QVector<QPointF> &points)
             maxX = qMax(p.x(), maxX);
             maxY = qMax(p.y(), maxY);
         }
-        float dX = maxX - minX;
-        float dY = maxY - minY;
-        float scaleX = 1, scaleY = 1;
+        this->zeroX = minX;
+        this->zeroY = minY;
 
-        if (!qFuzzyIsNull(dX))
-            scaleX = (this->width() - 2 * marginVector.x()) / dX;
-        if (!qFuzzyIsNull(dX))
-            scaleY = (this->height() - 2 * marginVector.y()) / dY;
-
-        if (this->saveScale)
-        {
-            float minScale = qMin(scaleX, scaleY);
-            scaleMatrix.setX(minScale);
-            scaleMatrix.setY(minScale);
-        }
-        else
-        {
-            scaleMatrix.setX(scaleX);
-            scaleMatrix.setY(scaleY);
-        }
-
-        moveMatrix.setX(-minX);
-        moveMatrix.setY(-minY);
+        this->countWidth = maxX - minX;
+        this->countHeight = maxY - minY;
     }
 }
 
@@ -286,47 +152,37 @@ void PainterWidget::setTransformations()
     setTransformationsByPoints(allPoints);
 }
 
-void PainterWidget::setTransformationsUI()
+QPointF PainterWidget::getScreenPoint(QPointF count_point)
 {
-    QVector<QPointF> allPoints;
-    for (auto &p : transformedPoints)
-        allPoints.push_back(p);
-    for (auto &l : transformedLines)
+    double x = 0, y = 0;
+    if (saveScale)
     {
-        allPoints.push_back(l.first);
-        allPoints.push_back(l.second);
-    }
-    for (auto &pl : transformedPointLines)
-    {
-        allPoints.push_back(pl.first);
-        allPoints.push_back(pl.second);
-    }
-    for (auto &cl : transformedClosedLines)
-    {
-        for (auto &p : cl)
-        {
-            allPoints.append(p);
-        }
-    }
-    for (auto &t : transformedTexts)
-    {
-        allPoints.push_back(QPointF(t.getLeft(), t.getTop()));
-        allPoints.push_back(QPointF(t.getRight(), t.getBottom()));
-    }
 
-    setTransformationsByPoints(allPoints);
+        double screen_width = qMin(width() - 2 * marginVector.x(), (height() - 2 * marginVector.y()) * countWidth / countHeight);
+        double screen_height = qMin(height() - 2 * marginVector.y(), (width() - 2 * marginVector.x()) * countHeight / countWidth);
+        x = (count_point.x() - zeroX) / countWidth * screen_width + marginVector.x();
+        y = screen_height - (count_point.y() - zeroY) / countHeight * screen_height + marginVector.y();
+    }
+    else
+    {
+        x = (count_point.x() - zeroX) / countWidth * (width() - marginVector.x() * 2) + marginVector.x();
+        y = (height() - marginVector.y() * 2 -
+             (count_point.y() - zeroY) / countHeight * (height() - marginVector.y() * 2)) + marginVector.y();
+    }
+    return QPointF(x,y);
 }
+
 
 void PainterWidget::drawClosedLines()
 {
-    for (auto &cl : transformedClosedLines)
+    for (auto &cl : closedLines)
     {
         if (cl.size() > 1)
         {
             qsizetype i = 0;
             do
             {
-                this->painter->drawLine(cl[i], cl[(i + 1) % cl.size()]);
+                this->painter->drawLine(getScreenPoint(cl[i]), getScreenPoint(cl[(i + 1) % cl.size()]));
                 i++;
             } while (i < cl.size());
         }
@@ -335,35 +191,39 @@ void PainterWidget::drawClosedLines()
 
 void PainterWidget::drawLines()
 {
-    for (auto &l : transformedLines)
+    for (auto &l : lines)
     {
-        painter->drawLine(l.first, l.second);
+        painter->drawLine(getScreenPoint(l.first), getScreenPoint(l.second));
     }
 }
 
 void PainterWidget::drawPointLines()
 {
-    for (auto &pl : transformedPointLines)
+    for (auto &pl : pointLines)
     {
-        painter->drawLine(pl.first, pl.second);
+        painter->drawLine(getScreenPoint(pl.first), getScreenPoint(pl.second));
     }
 }
 
 void PainterWidget::drawPoints()
 {
-    for (auto &p : transformedPoints)
+    for (auto &p : points)
     {
-        painter->drawPoint(p);
+        painter->drawPoint(getScreenPoint(p));
     }
 }
 
 void PainterWidget::drawTexts()
 {
-    for (auto &t : transformedTexts)
+    for (auto &t : texts)
     {
-        t.draw(this->painter);
+        QPointF p = getScreenPoint(t.getBox().topLeft());
+        PainterText pt = PainterText(p, t.getText(), font);
+
+        if (pt.getRight() > width() - marginVector.x())
+            pt.move(-pt.getBox().width(), 0);
+        if (pt.getBottom() > height() - marginVector.y())
+            pt.move(0, -pt.getBox().height());
+        pt.draw(this->painter);
     }
 }
-
-
-

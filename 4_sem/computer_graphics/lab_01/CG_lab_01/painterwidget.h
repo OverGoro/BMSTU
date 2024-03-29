@@ -14,39 +14,31 @@
 class PainterWidget : public QWidget
 {
     Q_OBJECT
-private:
+public:
     QPainter *painter;        // Объект отрисовщика
-
+private:
     QFont font; // Шрифт подписей
 
     // Трансформациии:
-    bool saveScale;         // Сохранять масштаб 1 к 1
-    QVector2D scaleMatrix;  // Матрица масштабирования
-    QVector2D moveMatrix;   // Матрица переноса
-    QVector2D marginVector; // Отступы от границ поля рисования (слева-справа, сверху-снизу)
+    bool saveScale;                 // Сохранять масштаб 1 к 1
+    QVector2D marginVector;         // Отступы от границ поля рисования (слева-справа, сверху-снизу)
+    double countWidth, countHeight; // Ширина и высота расчетного поля в отрисовщике
+    double zeroX, zeroY;            // Стартовые координаты
 
     // Объекты:
     QVector<QVector<QPointF>> closedLines;          // Замкнутые ломаные
-    QVector<QPair<QPointF, QPointF>> lines;         // Ломаные
-    QVector<QPair<QPointF, QPointF>> pointLines;    // Ломаные штрихами
+    QVector<QPair<QPointF, QPointF>> lines;         // Отрезки
+    QVector<QPair<QPointF, QPointF>> pointLines;    // Отрезки штрихами
     QVector<QPointF> points;                        // Точки
     QVector<PainterText> texts;                     // Подписи к точкам
 
-    QVector<QVector<QPointF>> transformedClosedLines;  // Трансформированные замкнутые ломаные
-    QVector<QPair<QPointF, QPointF>> transformedLines; // Трансформированные ломаные
-    QVector<QPair<QPointF, QPointF>> transformedPointLines; // Трансформированные ломаные штрихами
-    QVector<QPointF> transformedPoints;                // Трансформированные точки
-    QVector<PainterText> transformedTexts;             // Трансформированные подписи к точкам
 public:
     PainterWidget(QWidget *parrent = 0);
     ~PainterWidget();
 private:
     void paintEvent(QPaintEvent *event);
-    QPointF transformPoint(const QPointF &p);
-    void transformTexts();
-    void transformAll();
-    void transformAllToDecart();
 public:
+    // Добавление и отрисовка объектов
     /**
      * @brief drawClosedLines Доабавляет замкнутую ломаную для отрисовки.
      * Последняя точка соединится с первой
@@ -90,28 +82,6 @@ public:
      */
     void clear();
 
-
-    /**
-     * @brief setTransformationsByPoints Задает матрицу масштабирования
-     * и переноса таким образом, чтобы указанный список точек отрисовался
-     * в оптимальном масштабе
-     * @param points Точки
-     */
-    void setTransformationsByPoints(const QVector<QPointF> &points);
-
-    /**
-     * @brief setTransformationsPointsOnly Задает матрицу масштабирования
-     * и переноса таким образом, чтобы все объекты для отрисовки отрисовались
-     * в оптимальном масштабе
-     */
-    void setTransformations();
-
-    /**
-     * @brief setTransformationsUI Здает матрицу масштабирования таким образом,
-     * чтобы текст отрисовался в оптимальном масштабе
-     */
-    void setTransformationsUI();
-
     /**
      * @brief drawClosedLines Отрисовка замкнутых линий
      */
@@ -136,8 +106,22 @@ public:
      * @brief drawTexts Отрисовка текстов
      */
     void drawTexts();
+
+
+
+
+
+    // Установка масштабирования и переноса
+    void setTransformationsByPoints(const QVector<QPointF> &points);
+    void setTransformations();
+
+    // Получение координат точек
+    QPointF getScreenPoint(QPointF count_point);
+
     bool getSaveScale() const;
     void setSaveScale(bool newSaveScale);
+    int getWidth();
+    int getHeight();
 };
 
 #endif // PAINTERWIDGET_H

@@ -1,73 +1,8 @@
 #include "painterwidget.h"
 
-double PainterWidget::getCountWidth() const
-{
-    return countWidth;
-}
-
-void PainterWidget::setCountWidth(double newCountWidth)
-{
-    countWidth = newCountWidth;
-}
-
-double PainterWidget::getCountHeight() const
-{
-    return countHeight;
-}
-
-void PainterWidget::setCountHeight(double newCountHeight)
-{
-    countHeight = newCountHeight;
-}
-
-PainterWidget::PainterWidget(QWidget *parrent)
-    : QWidget(parrent)
-{
-    this->painter = NULL;
-    moveMatrix.setToIdentity();
-
-    rotationCenter = {0,0};
-    rotationMatrix.setToIdentity();
-
-    scaleCenter = {0,0};
-    scaleMatrix.setToIdentity();
-
-    setCountWidth(100);
-    setCountHeight(100);
-}
-
-PainterWidget::PainterWidget(const PainterWidget &pw)
-{
-    load(pw);
-}
-
-void PainterWidget::load(const PainterWidget &pw)
-{
-    painter = NULL;
-    this->moveMatrix = pw.moveMatrix;
-
-    this->rotationCenter = pw.rotationCenter;
-    this->rotationMatrix = pw.rotationMatrix;
-
-    this->scaleCenter = pw.scaleCenter;
-    this->scaleMatrix = pw.scaleMatrix;
-
-    this->countWidth = pw.countWidth;
-    this->countHeight = pw.countHeight;
-
-    this->lines = pw.lines;
-    this->polylines = pw.polylines;
-    this->closedLines = pw.closedLines;
-}
-
-
 void PainterWidget::paintEvent(QPaintEvent *event)
 {
-    painter = new QPainter(this);
-    drawClosedLines();
-    drawLines();
-    drawPolylines();
-    painter->end();
+   emit sign
 }
 
 void PainterWidget::resizeEvent(QResizeEvent *event)
@@ -147,7 +82,7 @@ void PainterWidget::setMoveMatrix(double dx, double dy)
 }
 
 void PainterWidget::setMoveMatrixPx(double dx, double dy)
-{
+{    
     int min_size = qMin(height(), width());
     dx = dx * countWidth / min_size;
     dy = dy * countHeight / min_size;
@@ -157,6 +92,7 @@ void PainterWidget::setMoveMatrixPx(double dx, double dy)
 
 void PainterWidget::setScaleMatrix(double cx, double cy, double kx, double ky)
 {
+    setCenterPoint(getScreenPoint({cx, cy}, qMin(this->width(), this->height())));
     scaleMatrix.setToIdentity();
     scaleMatrix(0,0) = kx;
     scaleMatrix(1,1) = ky;
@@ -165,6 +101,7 @@ void PainterWidget::setScaleMatrix(double cx, double cy, double kx, double ky)
 
 void PainterWidget::setScaleMatrixPx(double cx, double cy, double kx, double ky)
 {
+    setCenterPoint({cx, cy});
     int min_size = qMin(height(), width());
     cx = cx * countWidth / min_size;
     cy = cy * countHeight / min_size;
@@ -173,6 +110,7 @@ void PainterWidget::setScaleMatrixPx(double cx, double cy, double kx, double ky)
 
 void PainterWidget::setRotationMatrix(double cx, double cy, double angle)
 {
+    setCenterPoint(getScreenPoint({cx, cy}, qMin(this->width(), this->height())));
     rotationMatrix.setToIdentity();
     angle = qDegreesToRadians(angle);
     rotationMatrix(0, 0) = qCos(angle);
@@ -180,10 +118,12 @@ void PainterWidget::setRotationMatrix(double cx, double cy, double angle)
     rotationMatrix(1, 0) = qSin(angle);
     rotationMatrix(1, 1) = qCos(angle);
     rotationCenter = QPointF(cx, cy);
+
 }
 
 void PainterWidget::setRotationMatrixPx(double cx, double cy, double angle)
 {
+    setCenterPoint({cx, cy});
     int min_size = qMin(height(), width());
     cx = cx * countWidth / min_size;
     cy = cy * countHeight / min_size;
@@ -301,4 +241,9 @@ void PainterWidget::drawPolylines()
             this->painter->drawLine(p1, p2);
         }
     }
+}
+
+void PainterWidget::drawPoint(const QPointF &p)
+{
+    painter->drawPoint(p);
 }

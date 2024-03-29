@@ -39,8 +39,8 @@ void PointsTableView::setData(const QVector<QPointF> &points)
     horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
     for (qsizetype i = 0; i < points.size(); i++)
     {
-        model->setItem(i, 0, new QStandardItem(QString::number(points[i].x(),'g',8)));
-        model->setItem(i, 1, new QStandardItem(QString::number(points[i].y(),'g',8)));
+        model->setItem(i, 0, new QStandardItem(QString::number(points[i].x(),'g',8).replace(".",",")));
+        model->setItem(i, 1, new QStandardItem(QString::number(points[i].y(),'g',8).replace(".",",")));
     }
     this->update();
 }

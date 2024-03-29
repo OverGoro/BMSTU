@@ -62,7 +62,7 @@ void MainWindow::handle_error(int rc)
     if (rc == OK)
         ui->status_label->setText("ОК");
     if (rc == ERR_INCORRECT_TRIANGLE)
-        ui->status_label->setText("Треугольник не найден");
+        ui->status_label->setText("Невозможно построить треугольник");
     if (rc == ERR_PARALLEL_LINES)
         ui->status_label->setText("Линии параллельны");
     if (rc == ERR_SAME_POINT)

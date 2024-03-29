@@ -22,13 +22,12 @@ QRectF PainterText::intersection(const PainterText &pt)
 
 void PainterText::draw(QPainter *painter)
 {
-    painter->setFont(font);
-    painter->drawText(box.left(), box.top(), text);
+    painter->drawText(box.bottomLeft(), text);
 }
 
 void PainterText::move(qreal dx, qreal dy)
 {
-    this->box.moveBottomLeft(QPoint(dx,dy));
+    this->box.moveBottomLeft(QPoint(box.left() + dx, box.bottom() + dy));
 }
 
 void PainterText::moveTo(qreal x, qreal y)
