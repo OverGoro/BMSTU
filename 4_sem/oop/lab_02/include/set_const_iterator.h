@@ -14,7 +14,7 @@ class SetConstIterator
 {
 public:
     using iterator_category = std::forward_iterator_tag;
-    using difference_type = size_t;
+    using difference_type = std::ptrdiff_t;
     using node_type = const typename Set<T>::Node;
 
     using value_type = T;
@@ -23,6 +23,7 @@ public:
     
 
 public:
+    SetConstIterator() noexcept = default;
     SetConstIterator(const SetConstIterator<value_type> &it) = default;
     SetConstIterator(const std::shared_ptr<node_type> &node, size_t index = 0);
 

@@ -3,7 +3,8 @@
 #define _SET_HPP
 
 #include "set.h"
-
+#include <ranges>
+#include <algorithm>
 #pragma region Constructors
 
 template <SetType T>
@@ -17,10 +18,7 @@ template <SetType T>
 Set<T>::Set(const Set<T> &s)
 {
     clear();
-    for (const auto &e : s)
-    {
-        add(e);
-    }
+    std::ranges::for_each(s, [this](const auto &element) { add(element); });
 }
 
 template <SetType T>
@@ -29,9 +27,9 @@ template <SetType U>
 Set<T>::Set(const Set<U> &s)
 {
     clear();
-    for (auto e : s)
-        add(e);
+    std::ranges::for_each(s, [this](const auto &element) { add(element); });
 }
+
 template <SetType T>
 Set<T>::Set(Set<T> &&s) noexcept
 {
@@ -46,8 +44,7 @@ template <class C>
 Set<T>::Set(const C &container)
 {
     clear();
-    for (auto &e : container)
-        add(e);
+    std::ranges::for_each(container, [this](const auto &element) { add(element); });
 }
 
 template <SetType T>
@@ -56,10 +53,7 @@ template <typename I>
 Set<T>::Set(const I &begin, const I &end)
 {
     clear();
-    for (auto it = begin; it != end; ++it)
-    {
-        add(*it);
-    }
+    std::ranges::for_each(begin, end, [this](const auto &element) { add(element); });
 }
 
 template <SetType T>
@@ -68,19 +62,14 @@ template <typename I>
 Set<T>::Set(const I &begin, const size_type &num)
 {
     clear();
-    auto it = begin;
-    for (auto i = size_type(0); i < num; i++, it++)
-        add(*it);
+    std::ranges::for_each(begin, begin + num, [this](const auto &element) { add(element); });
 }
 
 template <SetType T>
 Set<T>::Set(size_type values_len, const T *values_array)
 {
     clear();
-    for (size_type i = 0; i < values_len; ++i)
-    {
-        add(values_array[i]);
-    }
+    std::ranges::for_each(values_array, values_array + values_len, [this](const auto &element) { add(element); });
 }
 
 template <SetType T>
@@ -89,20 +78,14 @@ template <SetType U>
 Set<T>::Set(size_type values_len, const U *values_array)
 {
     clear();
-    for (size_type i = 0; i < values_len; ++i)
-    {
-        add(values_array[i]);
-    }
+    std::ranges::for_each(values_array, values_array + values_len, [this](const auto &element) { add(element); });
 }
 
 template <SetType T>
 Set<T>::Set(std::initializer_list<T> args)
 {
     clear();
-    for (auto a = args.begin(); a < args.end(); a++)
-    {
-        add(*a);
-    }
+    std::ranges::for_each(args, [this](const auto &element) { add(element); });
 }
 
 #pragma endregion
@@ -126,12 +109,7 @@ template <class C>
     requires Container<C> && ConvertableTo<typename C::value_type, T>
 bool Set<T>::operator==(const C &container) const
 {
-    for (auto e : container)
-    {
-        if (!has(e))
-            return false;
-    }
-    return true;
+    return std::ranges::all_of(container, [this](const auto &e) { return has(e); });
 }
 
 template <SetType T>
@@ -148,10 +126,7 @@ template <SetType T>
 Set<T> &Set<T>::operator=(const Set<T> &set)
 {
     clear();
-    for (const auto &e : set)
-    {
-        add(e);
-    }
+    std::ranges::for_each(set, [this](const auto &e) { add(e); });
     return *this;
 }
 
@@ -200,7 +175,7 @@ Set<T> Set<T>::operator+(const U &element) const
 {
     Set<T> new_set(*this);
     new_set += element;
-    return Set(new_set);
+    return new_set;
 }
 
 template <SetType T, SetType U>
@@ -226,15 +201,8 @@ Set<T> Set<T>::operator+(const C &container) const
 {
     Set<T> new_set(*this);
     new_set += container;
-    return Set(new_set);
+    return new_set;
 }
-
-// template <class C, SetType T>
-//     requires Container<C> && ConvertableTo<typename C::value_type, T>
-// Set<T> operator+(const C &container, Set<T> &t)
-// {
-//     return t + container;
-// }
 
 template <SetType T>
 template <class C>
@@ -249,7 +217,7 @@ template <SetType T>
 Set<T> &Set<T>::operator+=(std::initializer_list<T> args)
 {
     add(args);
-    return (*this);
+    return *this;
 }
 
 template <SetType T>
@@ -277,8 +245,9 @@ Set<T> Set<T>::operator-(const U &element) const
 {
     Set<T> new_set(*this);
     new_set -= element;
-    return Set(new_set);
+    return new_set;
 }
+
 template <SetType T, SetType U>
     requires Convertable<T, U>
 Set<T> operator-(const U &element, Set<T> &t)
@@ -302,15 +271,8 @@ Set<T> Set<T>::operator-(const C &container) const
 {
     Set<T> new_set(*this);
     new_set -= container;
-    return Set(new_set);
+    return new_set;
 }
-
-// template <class C, SetType T>
-//     requires Container<C> && ConvertableTo<typename C::value_type, T>
-// Set<T> operator-(const C &container, Set<T> &t)
-// {
-//     return t - container;
-// }
 
 template <SetType T>
 template <class C>
@@ -481,6 +443,7 @@ Set<T> Set<T>::operator^(std::initializer_list<T> args)
 #pragma region Elements operations
 
 #pragma region add
+
 template <SetType T>
 void Set<T>::add(const T &element)
 {
@@ -510,15 +473,13 @@ template <class C>
     requires Container<C> && ConvertableTo<typename C::value_type, T>
 void Set<T>::add(const C &container)
 {
-    for (const auto e : container)
-        add(e);
+    std::ranges::for_each(container, [this](const auto& e) { add(e); });
 }
 
 template <SetType T>
 void Set<T>::add(std::initializer_list<T> args)
 {
-    for (auto e : args)
-        add(e);
+    std::ranges::for_each(args, [this](const auto& e) { add(e); });
 }
 #pragma endregion
 
@@ -529,12 +490,7 @@ template <SetType U>
     requires ComparableEquality<T, U>
 bool Set<T>::has(U value) const
 {
-    for (const auto &v : *this)
-    {
-        if (v == value)
-            return true;
-    }
-    return false;
+    return std::ranges::any_of(*this, [value](const auto& v) { return v == value; });
 }
 #pragma endregion
 
@@ -546,11 +502,10 @@ template <class C>
 Set<T> Set<T>::intersect(const C &container)
 {
     auto res = Set<T>();
-    for (auto e : container)
-    {
+    std::ranges::for_each(container, [this, &res](const auto& e) {
         if (has(e))
             res.add(e);
-    }
+    });
     return Set(res);
 }
 
@@ -560,11 +515,10 @@ template <class C>
 Set<T> &Set<T>::intersect_update(const C &container)
 {
     Set<T> tmp_set;
-    for (auto e : container)
-    {
+    std::ranges::for_each(container, [this, &tmp_set](const auto& e) {
         if (has(e))
             tmp_set.add(e);
-    }
+    });
     *this = tmp_set;
     return *this;
 }
@@ -572,6 +526,7 @@ Set<T> &Set<T>::intersect_update(const C &container)
 #pragma endregion
 
 #pragma region unite
+
 template <SetType T>
 template <class C>
     requires Container<C> && ConvertableTo<typename C::value_type, T>
@@ -587,13 +542,13 @@ template <class C>
     requires Container<C> && ConvertableTo<typename C::value_type, T>
 Set<T> &Set<T>::unite_update(const C &container)
 {
-    for (auto e : container)
-        add(e);
+    std::ranges::for_each(container, [this](const auto& e) { add(e); });
     return *this;
 }
 #pragma endregion
 
 #pragma region difference
+
 template <SetType T>
 template <class C>
     requires Container<C> && ConvertableTo<typename C::value_type, T>
@@ -616,6 +571,7 @@ Set<T> &Set<T>::difference_update(const C &container)
 #pragma endregion
 
 #pragma region symmetric_difference
+
 template <SetType T>
 template <class C>
     requires Container<C> && ConvertableTo<typename C::value_type, T>
@@ -633,11 +589,10 @@ Set<T> &Set<T>::symmetric_difference_update(const C &container)
 {
     auto tmp_set = intersect(container);
     remove(container);
-    for (auto e : container)
-    {
+    std::ranges::for_each(container, [this, &tmp_set](const auto& e) {
         if (!tmp_set.has(e))
             add(e);
-    }
+    });
     return *this;
 }
 
@@ -650,20 +605,15 @@ template <class C>
     requires Container<C> && ConvertableTo<typename C::value_type, T>
 void Set<T>::remove(const C &container)
 {
-    for (auto e : container)
-    {
-        remove(e);
-    }
+    std::ranges::for_each(container, [this](const auto& e) { remove(e); });
 }
 
 template <SetType T>
 void Set<T>::remove(const T &element)
 {
-
     if (!has(element))
         return;
 
-    auto n = head;
     for (auto n = head; n != nullptr && n->get_next().lock() != nullptr; n = n->get_next().lock())
     {
         if (n->get_next().lock()->getValue() == element)
@@ -677,10 +627,7 @@ void Set<T>::remove(const T &element)
 template <SetType T>
 inline void Set<T>::remove(std::initializer_list<T> args)
 {
-    for (auto e : args)
-    {
-        remove(e);
-    }
+    std::ranges::for_each(args, [this](const auto& e) { remove(e); });
 }
 
 template <SetType T>
@@ -694,16 +641,14 @@ template <SetType T>
 void Set<T>::update()
 {
     Set<T> tmp;
-    for (auto e : *this)
-        tmp.add(e);
+    std::ranges::for_each(*this, [&tmp](const auto& e) { tmp.add(e); });
     *this = tmp;
 }
 
 #pragma endregion
 
-#pragma endregion
-
 #pragma region Iterator operations
+
 template <SetType T>
 Set<T>::const_iterator Set<T>::begin() const
 {
@@ -742,14 +687,16 @@ template <SetType T>
 std::ostream &operator<<(std::ostream &os, const Set<T> &set)
 {
     os << set.size() << '(';
-    for (const auto &e : set)
-    {
-        os << e << ", ";
-    }
+
+    auto range = set | std::views::transform([](const auto &e) {
+        return std::to_string(e) + ", ";
+    });
+
+    std::ranges::copy(range, std::ostream_iterator<std::string>(os));
+    
     os << ")\n";
     return os;
 }
 
 #pragma endregion
-
 #endif
