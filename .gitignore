@@ -1,4 +1,5 @@
 *.zip
 *.exe
 *.o
-.*.vscode
+*.vscode
+*.idx
